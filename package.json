@@ -1,0 +1,43 @@
+{
+  "name": "project-cronus",
+  "version": "1.0.0",
+  "description": "Real time collaboration",
+  "homepage": "https://github.com/freymend/Project-Cronus#readme",
+  "bugs": {
+    "url": "https://github.com/freymend/Project-Cronus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freymend/Project-Cronus.git"
+  },
+  "license": "AGPL-3.0",
+  "author": "Me",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "check": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "packageManager": "npm@11.14.1+sha512.6a8a4d67478497a2dbc6815cad72e64c43f33413717e242756047d466241ab39bee61e691683a64658e94496ec5f1a1c05e4a5ec62dcc773280dfd949443a367",
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "oxfmt": "^0.50.0",
+    "oxlint": "^1.65.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.13"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.4.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}
