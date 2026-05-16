@@ -1,25 +1,25 @@
-import { addMessage, clearMessages } from "../state/db";
+import { clearMessages } from "../state/db";
 
-interface Message {
+export interface Message {
   id: string;
   message: string;
 }
 
-interface AddMessageAction {
+export interface AddMessageAction {
   type: ActionType.ADD_MESSAGE;
   payload: Message;
 }
 
-interface InitializeMessagesAction {
+export interface InitializeMessagesAction {
   type: ActionType.INITIALIZE_MESSAGES;
   payload: Message[];
 }
 
-interface ClearMessagesAction {
+export interface ClearMessagesAction {
   type: ActionType.CLEAR_MESSAGES;
 }
 
-type ReducerAction =
+export type ReducerAction =
   | AddMessageAction
   | InitializeMessagesAction
   | ClearMessagesAction;

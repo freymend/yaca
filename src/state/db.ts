@@ -7,7 +7,7 @@ interface DB {
   };
 }
 
-const openRequest = await openDB<DB>("cronus-db", 1, {
+export const db = await openDB<DB>("cronus-db", 1, {
   upgrade(db, oldVersion) {
     switch (oldVersion) {
       case 0:
@@ -31,8 +31,6 @@ const openRequest = await openDB<DB>("cronus-db", 1, {
     console.warn("The database connection was unexpectedly closed.");
   },
 });
-
-export const db = openRequest;
 
 export const addMessage = async (message: string) => {
   const tx = db.transaction("messages", "readwrite");
