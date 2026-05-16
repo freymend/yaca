@@ -18,6 +18,7 @@ export default function MessageInput({
       <label className={styles.Label}>
         Message
         <textarea
+          id="MessageInput"
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
