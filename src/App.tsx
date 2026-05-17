@@ -1,4 +1,5 @@
 import "./App.css";
+import Join from "./components/Join/Join";
 import Message from "./components/Message/Message";
 import MessageInput from "./components/MessageInput/MessageInput";
 import useMessageInput from "./components/MessageInput/useMessageInput";
@@ -30,18 +31,40 @@ function App() {
   }
 
   return (
-    <div style={{ padding: "16px" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {messages.map(({ message }, index) => (
-          <Message key={index} message={message} />
-        ))}
+    <div
+      style={{
+        display: "grid",
+        width: "100%",
+        gridTemplateColumns: "repeat(3, 1fr)",
+      }}
+    >
+      <Join />
+      <div
+        style={{
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          minWidth: "80ch",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+          }}
+        >
+          {messages.map(({ message }, index) => (
+            <Message key={index} message={message} />
+          ))}
+        </div>
+        <MessageInput
+          value={value}
+          rows={rows}
+          handleChange={handleChange}
+          handleKeyDown={handleSendMessage}
+        />
       </div>
-      <MessageInput
-        value={value}
-        rows={rows}
-        handleChange={handleChange}
-        handleKeyDown={handleSendMessage}
-      />
     </div>
   );
 }
