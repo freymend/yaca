@@ -7,3 +7,9 @@ Messing around with real-time collaboration and WebRTC. This is a playground for
 | Chat functionality      | In Progress |
 | Real-time collaboration | Planned     |
 | WebRTC integration      | Planned     |
+
+## TODO
+
+- [ ] P2P communication
+    - [ ] research WebRTC
+    - [ ] STUN / TURN servers?
