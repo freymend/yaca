@@ -13,3 +13,4 @@ Messing around with real-time collaboration and WebRTC. This is a playground for
 - [ ] P2P communication
     - [ ] research WebRTC
     - [ ] STUN / TURN servers?
+    - [ ] BiTorrent peer discovery?
