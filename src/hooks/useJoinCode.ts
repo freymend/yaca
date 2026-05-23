@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { addJoinCode, getJoinCode } from "../../state/db";
+import { addJoinCode, getJoinCode } from "../state/db";
+
 
 export function useJoinCode() {
   const [joinCode, setJoinCode] = useState<string | null>(null);

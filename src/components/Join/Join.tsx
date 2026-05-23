@@ -1,16 +1,13 @@
-import { useRef, useState } from "react";
-import { useJoinCode } from "./useJoinCode";
+import { useRef } from "react";
 
-export default function Join() {
+export default function Join({ joinCode, connectToPeer }: { joinCode: string | null; connectToPeer: (peerId: string) => void }) {
   const ref = useRef<HTMLInputElement>(null);
-
- const { joinCode } = useJoinCode();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = ref.current?.value.trim();
     if (e.key === "Enter" && inputValue) {
       e.preventDefault();
-      console.log("Join code entered:", inputValue);
+      connectToPeer(inputValue);
     }
   };
 

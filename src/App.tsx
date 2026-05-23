@@ -3,12 +3,16 @@ import Join from "./components/Join/Join";
 import Message from "./components/Message/Message";
 import MessageInput from "./components/MessageInput/MessageInput";
 import useMessageInput from "./components/MessageInput/useMessageInput";
+import { useJoinCode } from "./hooks/useJoinCode";
 import useMessageStorage from "./hooks/useMessageStorage";
+import { usePeer } from "./hooks/usePeer";
 import { ActionType } from "./reducers/messageReducer";
 import { addMessage } from "./state/db";
 
 function App() {
   const { messages, isLoading, dispatch } = useMessageStorage();
+  const { joinCode } = useJoinCode();
+  const { connectToPeer } = usePeer(joinCode);
   const { value, rows, handleChange, handleKeyDown } = useMessageInput();
 
   const handleSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -38,7 +42,7 @@ function App() {
         gridTemplateColumns: "repeat(3, 1fr)",
       }}
     >
-      <Join />
+      <Join joinCode={joinCode} connectToPeer={connectToPeer} />
       <div
         style={{
           padding: "16px",
