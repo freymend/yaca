@@ -3,22 +3,21 @@ import Join from "./components/Join/Join";
 import Message from "./components/Message/Message";
 import MessageInput from "./components/MessageInput/MessageInput";
 import useMessageInput from "./components/MessageInput/useMessageInput";
-import { useJoinCode } from "./hooks/useJoinCode";
+import { useDB } from "./hooks/useDB";
 import useMessageStorage from "./hooks/useMessageStorage";
 import { usePeer } from "./hooks/usePeer";
 import { ActionType } from "./reducers/messageReducer";
-import { addMessage } from "./state/db";
 
 function App() {
+  const db = useDB();
   const { messages, isLoading, dispatch } = useMessageStorage();
-  const { joinCode } = useJoinCode();
-  const { connectToPeer } = usePeer(joinCode);
+  const { connectToPeer } = usePeer();
   const { value, rows, handleChange, handleKeyDown } = useMessageInput();
 
   const handleSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      addMessage(value).catch((error) => {
+      db.addMessage(value).catch((error) => {
         console.error("Failed to add message to IndexedDB:", error);
       });
       dispatch({
@@ -42,7 +41,7 @@ function App() {
         gridTemplateColumns: "repeat(3, 1fr)",
       }}
     >
-      <Join joinCode={joinCode} connectToPeer={connectToPeer} />
+      <Join connectToPeer={connectToPeer} />
       <div
         style={{
           padding: "16px",

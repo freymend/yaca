@@ -1,5 +1,3 @@
-import { clearMessages } from "../state/db";
-
 export interface Message {
   id: string;
   message: string;
@@ -19,10 +17,7 @@ export interface ClearMessagesAction {
   type: ActionType.CLEAR_MESSAGES;
 }
 
-export type ReducerAction =
-  | AddMessageAction
-  | InitializeMessagesAction
-  | ClearMessagesAction;
+export type ReducerAction = AddMessageAction | InitializeMessagesAction | ClearMessagesAction;
 
 export const enum ActionType {
   INITIALIZE_MESSAGES = "INITIALIZE_MESSAGES",
@@ -30,19 +25,13 @@ export const enum ActionType {
   CLEAR_MESSAGES = "CLEAR_MESSAGES",
 }
 
-export function messageReducer(
-  state: Message[],
-  action: ReducerAction,
-): Message[] {
+export function messageReducer(state: Message[], action: ReducerAction): Message[] {
   switch (action.type) {
     case ActionType.INITIALIZE_MESSAGES:
       return action.payload;
     case ActionType.ADD_MESSAGE:
       return [...state, action.payload];
     case ActionType.CLEAR_MESSAGES:
-      clearMessages().catch((error) => {
-        console.error("Failed to clear messages from IndexedDB:", error);
-      });
       return [];
     default:
       return state;

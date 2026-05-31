@@ -1,6 +1,18 @@
-import { useRef } from "react";
+import { useRef, use, useState } from "react";
+import { useDB } from "../../hooks/useDB";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-export default function Join({ joinCode, connectToPeer }: { joinCode: string | null; connectToPeer: (peerId: string) => void }) {
+export default function Join({ connectToPeer }: { connectToPeer: (peerId: string) => void }) {
+  const db = useDB();
+  const { data: joinCode } = useSuspenseQuery({
+    queryKey: ["joinCode"],
+    queryFn: async () => {
+      const joinCodeData = await db.getJoinCode();
+      return joinCodeData?.joinCode;
+    },
+
+  });
+
   const ref = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

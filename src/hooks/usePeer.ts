@@ -1,7 +1,20 @@
-import Peer from "peerjs"
-import { useEffect, useRef, useState } from "react";
+import Peer from "peerjs";
+import { use, useEffect, useRef, useState } from "react";
+import { useDB } from "./useDB";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const usePeer = (id: string | null) => {
+export const usePeer = () => {
+  const db = useDB();
+
+  const { data: id } = useSuspenseQuery({
+    queryKey: ["joinCode"],
+    queryFn: async () => {
+      const joinCodeData = await db.getJoinCode();
+      return joinCodeData?.joinCode;
+    },
+
+  });
+
   const peerRef = useRef<Peer | null>(null);
   const connectionIdsRef = useRef<Set<string>>(new Set());
 
@@ -19,7 +32,7 @@ export const usePeer = (id: string | null) => {
     peerRef.current.on("connection", (conn) => {
       console.log(`Connected to peer: ${conn.peer}`);
     });
-  
+
     peerRef.current.on("error", (err) => {
       console.error("Peer error:", err);
     });
@@ -45,9 +58,9 @@ export const usePeer = (id: string | null) => {
             connectionIdsRef.current.delete(peerId);
           });
         }
-        return
+        return;
       }
       return null;
     },
-  }
-}
+  };
+};
