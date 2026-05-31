@@ -11,8 +11,8 @@ Messing around with real-time collaboration and WebRTC. This is a playground for
 ## TODO
 
 - [ ] P2P communication
-    - [ ] research WebRTC
-        - [ ] https://peerjs.com/
-    - [ ] STUN / TURN servers?
-    - [ ] BiTorrent peer discovery?
-        - [ ] https://github.com/dmotz/trystero
+  - [ ] research WebRTC
+    - [ ] https://peerjs.com/
+  - [ ] STUN / TURN servers?
+  - [ ] BiTorrent peer discovery?
+    - [ ] https://github.com/dmotz/trystero
