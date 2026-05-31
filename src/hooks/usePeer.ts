@@ -12,7 +12,6 @@ export const usePeer = () => {
       const joinCodeData = await db.getJoinCode();
       return joinCodeData?.joinCode;
     },
-
   });
 
   const peerRef = useRef<Peer | null>(null);

@@ -62,7 +62,7 @@ export class RepoDB {
     return RepoDB.#instance;
   }
 
-  private constructor() { }
+  private constructor() {}
 
   private get db() {
     if (!RepoDB.#db) {

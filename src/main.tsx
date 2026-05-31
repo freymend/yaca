@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")!).render(
         </Suspense>
       </QueryClientProvider>
     </DBContext>
-  </StrictMode >,
+  </StrictMode>,
 );

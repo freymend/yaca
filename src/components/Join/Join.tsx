@@ -10,7 +10,6 @@ export default function Join({ connectToPeer }: { connectToPeer: (peerId: string
       const joinCodeData = await db.getJoinCode();
       return joinCodeData?.joinCode;
     },
-
   });
 
   const ref = useRef<HTMLInputElement>(null);
