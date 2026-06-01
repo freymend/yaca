@@ -62,7 +62,7 @@ export class RepoDB {
     return RepoDB.#instance;
   }
 
-  private constructor() {}
+  private constructor() { }
 
   private get db() {
     if (!RepoDB.#db) {
@@ -96,13 +96,16 @@ export class RepoDB {
     await tx.done;
   }
 
-  async addJoinCode(joinCode: string) {
+  private async addJoinCode(joinCode: string) {
     const db = this.db;
     const tx = db.transaction("joinCodes", "readwrite");
     const store = tx.objectStore("joinCodes");
     await store.clear();
-    await store.add({ id: Date.now(), joinCode });
+    const data = { id: Date.now(), joinCode };
+    await store.add(data);
     await tx.done;
+
+    return data;
   }
 
   async getJoinCode() {
@@ -110,8 +113,15 @@ export class RepoDB {
     const tx = db.transaction("joinCodes", "readonly");
     const store = tx.objectStore("joinCodes");
     const joinCodes = await store.getAll();
+
     await tx.done;
-    return joinCodes[0];
+
+    const joinCodeData = joinCodes[0];
+    if (!joinCodeData) {
+      const newJoinCode = self.crypto.randomUUID();
+      return this.addJoinCode(newJoinCode);
+    }
+    return joinCodeData;
   }
 
   async deleteDatabase() {
