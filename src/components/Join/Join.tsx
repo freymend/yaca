@@ -8,7 +8,7 @@ export default function Join({ connectToPeer }: { connectToPeer: (peerId: string
     queryKey: ["joinCode"],
     queryFn: async () => {
       const joinCodeData = await db.getJoinCode();
-      return joinCodeData?.joinCode;
+      return joinCodeData.joinCode;
     },
   });
 
