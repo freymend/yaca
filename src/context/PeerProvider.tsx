@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { type ReactNode, useEffect, useMemo, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useDB } from "../hooks/useDB";
 import { PeerJS } from "../state/peer";
 import { PeerContext } from "./PeerContext";

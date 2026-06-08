@@ -50,14 +50,16 @@ function DBCallbacks(): OpenDBCallbacks<DB> {
 export class RepoDB {
   static #instance: RepoDB;
   static #db: IDBPDatabase<DB> | null = null;
+  static messages: { id: number; message: string }[] = [];
 
   static async init() {
     if (!RepoDB.#instance) {
       RepoDB.#instance = new RepoDB();
     }
-
+    
     if (!RepoDB.#db) {
       RepoDB.#db = await openDB<DB>("cronus-db", 2, DBCallbacks());
+      RepoDB.messages = await RepoDB.#instance.getAllMessages();
     }
     return RepoDB.#instance;
   }
@@ -79,13 +81,17 @@ export class RepoDB {
     await tx.done;
   }
 
-  async getAllMessages() {
+  private async getAllMessages() {
     const db = this.db;
     const tx = db.transaction("messages", "readonly");
     const store = tx.objectStore("messages");
     const messages = await store.getAll();
     await tx.done;
     return messages;
+  }
+
+  getMessages() {
+    return RepoDB.messages;
   }
 
   async clearMessages() {

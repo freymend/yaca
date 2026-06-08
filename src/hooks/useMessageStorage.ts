@@ -1,38 +1,12 @@
-import { useEffect, useReducer, useState } from "react";
-import { ActionType, messageReducer } from "../reducers/messageReducer";
-import { useDB } from "./useDB";
+import { useContext } from "react";
+import { MessageStorageContext } from "../context/MessageStorageContext";
 
 export default function useMessageStorage() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [messages, dispatch] = useReducer(messageReducer, []);
-  const db = useDB();
+  const messageStorage = useContext(MessageStorageContext);
 
-  useEffect(() => {
-    let _isMounted = true;
+  if (!messageStorage) {
+    throw new Error("useMessageStorage must be used within a MessageStorageProvider");
+  }
 
-    const fetchMessages = async () => {
-      try {
-        setIsLoading(true);
-        const messages = await db.getAllMessages();
-        dispatch({
-          type: ActionType.INITIALIZE_MESSAGES,
-          payload: messages.map((msg) => ({
-            id: msg.id.toString(),
-            message: msg.message,
-          })),
-        });
-      } catch (error) {
-        console.error("Failed to fetch messages from IndexedDB:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchMessages();
-
-    return () => {
-      _isMounted = false;
-    };
-  }, []);
-
-  return { messages, isLoading, dispatch };
+  return messageStorage;
 }

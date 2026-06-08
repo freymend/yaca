@@ -10,7 +10,7 @@ import { ActionType } from "./reducers/messageReducer";
 
 function App() {
   const db = useDB();
-  const { messages, isLoading, dispatch } = useMessageStorage();
+  const { messages, dispatch } = useMessageStorage();
   const { connectToPeer } = usePeer();
   const { value, rows, handleChange, handleKeyDown } = useMessageInput();
 
@@ -22,16 +22,12 @@ function App() {
       });
       dispatch({
         type: ActionType.ADD_MESSAGE,
-        payload: { id: Date.now().toString(), message: value },
+        payload: { id: Date.now(), message: value },
       });
       handleKeyDown(e);
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
   };
-
-  if (isLoading) {
-    return <div style={{ padding: "16px" }}>Loading messages...</div>;
-  }
 
   return (
     <div

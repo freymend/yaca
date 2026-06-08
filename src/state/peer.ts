@@ -1,8 +1,8 @@
-import Peer, { type PeerEvents } from "peerjs";
+import Peer, { type DataConnection, type PeerEvents } from "peerjs";
 
 export class PeerJS {
   #peerjs: Peer | null;
-  connections = new Set<string>();
+  connections = {} as Record<string, DataConnection>;
 
   constructor() {
     this.#peerjs = null;
@@ -21,9 +21,13 @@ export class PeerJS {
 
   onconnection(callback: PeerEvents["connection"]) {
     this.peer.on("connection", (conn) => {
-      if (!this.connections.has(conn.peer)) {
-        this.connections.add(conn.peer);
+      if (!this.connections[conn.peer]) {
+        this.connections[conn.peer] = conn;
         callback(conn);
+        conn.on("close", () => {
+          console.log(`Connection closed with peer: ${conn.peer}`);
+          delete this.connections[conn.peer];
+        });
       }
     });
   }
@@ -45,16 +49,16 @@ export class PeerJS {
   }
 
   connectToPeer(peerId: string) {
-    if (!this.connections.has(peerId)) {
+    if (!this.connections[peerId]) {
       const connection = this.peer.connect(peerId);
       if (connection) {
         connection.on("open", () => {
           console.log(`Connection established with peer: ${peerId}`);
-          this.connections.add(peerId);
+          this.connections[peerId] = connection;
         });
         connection.on("close", () => {
           console.log(`Connection closed with peer: ${peerId}`);
-          this.connections.delete(peerId);
+          delete this.connections[peerId];
         });
       }
     }
@@ -70,6 +74,6 @@ export class PeerJS {
   destroy() {
     this.peer.destroy();
     this.#peerjs = null;
-    this.connections.clear();
+    this.connections = {};
   }
 }
