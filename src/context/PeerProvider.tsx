@@ -1,6 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { type ReactNode, useEffect, useRef } from "react";
 import { useDB } from "../hooks/useDB";
+import useMessageStorage from "../hooks/useMessageStorage";
+import { ActionType } from "../reducers/messageReducer";
 import { PeerJS } from "../state/peer";
 import { PeerContext } from "./PeerContext";
 
@@ -10,6 +12,7 @@ type PeerProviderProps = {
 
 export const PeerProvider = ({ children }: PeerProviderProps) => {
   const db = useDB();
+  const { dispatch } = useMessageStorage();
 
   const { data: joinCode } = useSuspenseQuery({
     queryKey: ["joinCode"],
@@ -32,6 +35,17 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
 
     peer.onconnection((conn) => {
       console.log(`Connected to peer: ${conn.peer}`);
+      conn.on("data", (data) => {
+        console.log(`Received message from peer ${conn.peer}:`, data);
+        if (typeof data === "string") {
+          dispatch({
+            type: ActionType.ADD_MESSAGE,
+            payload: { id: Date.now(), message: data },
+          });
+        } else {
+          console.warn(`Received non-string message from peer ${conn.peer}:`, data);
+        }
+      });
     });
 
     peer.onerror((err) => {
@@ -43,5 +57,38 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
     };
   }, []);
 
-  return <PeerContext value={peerRef.current}>{children}</PeerContext>;
+  const connectToPeer = (peerId: string) => {
+    const peer = peerRef.current;
+    if (!peer.connections[peerId]) {
+      const connection = peer.connectToPeer(peerId);
+      if (connection) {
+        connection.on("open", () => {
+          console.log(`Connection established with peer: ${peerId}`);
+          peer.connections[peerId] = connection;
+        });
+        connection.on("data", (data) =>{
+        console.log(`Received message from peer ${connection.peer}:`, data);
+        if (typeof data === "string") {
+          dispatch({
+            type: ActionType.ADD_MESSAGE,
+            payload: { id: Date.now(), message: data },
+          });
+        } else {
+          console.warn(`Received non-string message from peer ${connection.peer}:`, data);
+        }
+      });
+        connection.on("close", () => {
+          console.log(`Connection closed with peer: ${peerId}`);
+          delete peer.connections[peerId];
+        });
+      }
+    }
+  }
+
+  return <PeerContext value={{
+    connectToPeer,
+    peer: peerRef.current
+  }}>
+    {children}
+  </PeerContext>;
 };

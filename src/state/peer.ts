@@ -49,19 +49,7 @@ export class PeerJS {
   }
 
   connectToPeer(peerId: string) {
-    if (!this.connections[peerId]) {
-      const connection = this.peer.connect(peerId);
-      if (connection) {
-        connection.on("open", () => {
-          console.log(`Connection established with peer: ${peerId}`);
-          this.connections[peerId] = connection;
-        });
-        connection.on("close", () => {
-          console.log(`Connection closed with peer: ${peerId}`);
-          delete this.connections[peerId];
-        });
-      }
-    }
+   return this.peer.connect(peerId);
   }
 
   initialize(peerId: string) {

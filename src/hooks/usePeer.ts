@@ -2,15 +2,23 @@ import { useContext } from "react";
 import { PeerContext } from "../context/PeerContext";
 
 export const usePeer = () => {
-  const peer = useContext(PeerContext);
+  const context = useContext(PeerContext);
 
-  if (!peer) {
+  if (!context) {
     throw new Error("usePeer must be used within a PeerProvider");
   }
 
   return {
     connectToPeer: (peerId: string) => {
-      peer.connectToPeer(peerId);
+      context.connectToPeer(peerId);
+    },
+    sendMessage: (message: string) => {
+      for (const connId in context.peer.connections) {
+        const conn = context.peer.connections[connId];
+        if (conn && conn.open) {
+          conn.send(message);
+        }
+      }
     },
   };
 };

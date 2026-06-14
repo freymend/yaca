@@ -11,7 +11,7 @@ import { ActionType } from "./reducers/messageReducer";
 function App() {
   const db = useDB();
   const { messages, dispatch } = useMessageStorage();
-  const { connectToPeer } = usePeer();
+  const { connectToPeer, sendMessage } = usePeer();
   const { value, rows, handleChange, handleKeyDown } = useMessageInput();
 
   const handleSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -25,6 +25,7 @@ function App() {
         payload: { id: Date.now(), message: value },
       });
       handleKeyDown(e);
+      sendMessage(value);
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
   };

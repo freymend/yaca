@@ -1,4 +1,9 @@
 import { createContext } from "react";
 import type { PeerJS } from "../state/peer";
 
-export const PeerContext = createContext<PeerJS | null>(null);
+interface PeerContextValue {
+  connectToPeer: (peerId: string) => void;
+  peer: PeerJS;
+}
+
+export const PeerContext = createContext<PeerContextValue | null>(null);
