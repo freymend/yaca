@@ -60,6 +60,7 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
   const connectToPeer = (peerId: string) => {
     const peer = peerRef.current;
     if (!peer.connections[peerId]) {
+      // TODO: refactor connection handling
       const connection = peer.connectToPeer(peerId);
       if (connection) {
         connection.on("open", () => {

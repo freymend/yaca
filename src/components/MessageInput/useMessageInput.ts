@@ -4,7 +4,7 @@ export default function useMessageInput() {
   const [value, setValue] = useState("");
   const [rows, setRows] = useState(1);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleReset = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     setValue("");
     setRows(1);
@@ -20,6 +20,6 @@ export default function useMessageInput() {
     value,
     rows,
     handleChange,
-    handleKeyDown,
+    handleReset,
   };
 }

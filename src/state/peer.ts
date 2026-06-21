@@ -20,6 +20,7 @@ export class PeerJS {
   }
 
   onconnection(callback: PeerEvents["connection"]) {
+    // TODO: refactor connection handling
     this.peer.on("connection", (conn) => {
       if (!this.connections[conn.peer]) {
         this.connections[conn.peer] = conn;

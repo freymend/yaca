@@ -1,9 +1,12 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useDB } from "../../hooks/useDB";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { usePeer } from "../../hooks/usePeer";
 
-export default function Join({ connectToPeer }: { connectToPeer: (peerId: string) => void }) {
+export default function Join() {
   const db = useDB();
+  const { connectToPeer} = usePeer();
+
   const { data: joinCode } = useSuspenseQuery({
     queryKey: ["joinCode"],
     queryFn: async () => {
