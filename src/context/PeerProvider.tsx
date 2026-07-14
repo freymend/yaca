@@ -22,74 +22,81 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
     },
   });
 
-  const peerRef = useRef<PeerJS>(new PeerJS());
+  const peerRef = useRef(new PeerJS());
 
   useEffect(() => {
     const peer = peerRef.current;
 
     peer.initialize(joinCode);
 
-    peer.onopen((id) => {
-      console.log(`Peer connected with ID: ${id}`);
-    });
+    const unsubscribeConnection = peer.on(
+      "connection",
+      ({ detail: conn }) => {
+        console.log(`New connection from peer ${conn.peer}`);
+      }
+    );
 
-    peer.onconnection((conn) => {
-      console.log(`Connected to peer: ${conn.peer}`);
-      conn.on("data", (data) => {
-        console.log(`Received message from peer ${conn.peer}:`, data);
-        if (typeof data === "string") {
-          dispatch({
-            type: ActionType.ADD_MESSAGE,
-            payload: { id: Date.now(), message: data },
-          });
-        } else {
-          console.warn(`Received non-string message from peer ${conn.peer}:`, data);
+    const unsubscribeMessage = peer.on(
+      "message",
+      ({ detail: { peerId, data: message } }) => {
+        console.log(`Received message from peer ${peerId}:`, message);
+
+        if (typeof message !== "string") {
+          console.warn("Received non-string message:", message);
+          return;
         }
-      });
-    });
 
-    peer.onerror((err) => {
-      console.error("Peer error:", err);
+        dispatch({
+          type: ActionType.ADD_MESSAGE,
+          payload: {
+            id: Date.now(),
+            message,
+          },
+        });
+      }
+    );
+
+    const unsubscribeConnected = peer.on(
+      "connected",
+      ({ detail: { peerId } }) => {
+        console.log(`Connected to peer: ${peerId}`);
+      }
+    );
+
+    const unsubscribeDisconnected = peer.on(
+      "disconnected",
+      ({ detail: { peerId } }) => {
+        console.log(`Connection closed with peer: ${peerId}`);
+      }
+    );
+
+    const unsubscribeError = peer.on("error", ({ detail: { peerId, error } }) => {
+      console.error(`Error with peer ${peerId}:`, error);
     });
 
     return () => {
+      unsubscribeConnection();
+      unsubscribeMessage();
+      unsubscribeConnected();
+      unsubscribeDisconnected();
+      unsubscribeError();
+
       peer.destroy();
     };
-  }, []);
+  }, [joinCode, dispatch]);
 
   const connectToPeer = (peerId: string) => {
-    const peer = peerRef.current;
-    if (!peer.connections[peerId]) {
-      // TODO: refactor connection handling
-      const connection = peer.connectToPeer(peerId);
-      if (connection) {
-        connection.on("open", () => {
-          console.log(`Connection established with peer: ${peerId}`);
-          peer.connections[peerId] = connection;
-        });
-        connection.on("data", (data) =>{
-        console.log(`Received message from peer ${connection.peer}:`, data);
-        if (typeof data === "string") {
-          dispatch({
-            type: ActionType.ADD_MESSAGE,
-            payload: { id: Date.now(), message: data },
-          });
-        } else {
-          console.warn(`Received non-string message from peer ${connection.peer}:`, data);
-        }
-      });
-        connection.on("close", () => {
-          console.log(`Connection closed with peer: ${peerId}`);
-          delete peer.connections[peerId];
-        });
-      }
-    }
-  }
+    peerRef.current.connectToPeer(peerId);
+  };
 
-  return <PeerContext value={{
-    connectToPeer,
-    peer: peerRef.current
-  }}>
-    {children}
-  </PeerContext>;
+  return (
+    <PeerContext
+      value={{
+        connectToPeer,
+        peer: peerRef.current,
+      }}
+    >
+      {children}
+    </PeerContext>
+  );
 };
