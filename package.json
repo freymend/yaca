@@ -22,7 +22,7 @@
     "check": "tsc --noEmit",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.14",
@@ -39,7 +39,8 @@
     "oxfmt": "^0.50.0",
     "oxlint": "^1.65.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "wrangler": "^4.111.0"
   },
   "packageManager": "npm@12.0.0-pre.1+sha512.ec1e225677cdfdd911b2733680c4d3bf2af781cb033cbf2b32e7081a29ec9366da7056d0087b9c47c8b4ff5e1243b29fdf4263882298886453c1906735b65d74"
 }
