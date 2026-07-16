@@ -56,7 +56,7 @@ export class RepoDB {
     if (!RepoDB.#instance) {
       RepoDB.#instance = new RepoDB();
     }
-    
+
     if (!RepoDB.#db) {
       RepoDB.#db = await openDB<DB>("cronus-db", 2, DBCallbacks());
       RepoDB.messages = await RepoDB.#instance.getAllMessages();

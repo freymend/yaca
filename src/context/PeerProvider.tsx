@@ -29,46 +29,34 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
 
     peer.initialize(joinCode);
 
-    const unsubscribeConnection = peer.on(
-      "connection",
-      ({ detail: conn }) => {
-        console.log(`New connection from peer ${conn.peer}`);
+    const unsubscribeConnection = peer.on("connection", ({ detail: conn }) => {
+      console.log(`New connection from peer ${conn.peer}`);
+    });
+
+    const unsubscribeMessage = peer.on("message", ({ detail: { peerId, data: message } }) => {
+      console.log(`Received message from peer ${peerId}:`, message);
+
+      if (typeof message !== "string") {
+        console.warn("Received non-string message:", message);
+        return;
       }
-    );
 
-    const unsubscribeMessage = peer.on(
-      "message",
-      ({ detail: { peerId, data: message } }) => {
-        console.log(`Received message from peer ${peerId}:`, message);
+      dispatch({
+        type: ActionType.ADD_MESSAGE,
+        payload: {
+          id: Date.now(),
+          message,
+        },
+      });
+    });
 
-        if (typeof message !== "string") {
-          console.warn("Received non-string message:", message);
-          return;
-        }
+    const unsubscribeConnected = peer.on("connected", ({ detail: { peerId } }) => {
+      console.log(`Connected to peer: ${peerId}`);
+    });
 
-        dispatch({
-          type: ActionType.ADD_MESSAGE,
-          payload: {
-            id: Date.now(),
-            message,
-          },
-        });
-      }
-    );
-
-    const unsubscribeConnected = peer.on(
-      "connected",
-      ({ detail: { peerId } }) => {
-        console.log(`Connected to peer: ${peerId}`);
-      }
-    );
-
-    const unsubscribeDisconnected = peer.on(
-      "disconnected",
-      ({ detail: { peerId } }) => {
-        console.log(`Connection closed with peer: ${peerId}`);
-      }
-    );
+    const unsubscribeDisconnected = peer.on("disconnected", ({ detail: { peerId } }) => {
+      console.log(`Connection closed with peer: ${peerId}`);
+    });
 
     const unsubscribeError = peer.on("error", ({ detail: { peerId, error } }) => {
       console.error(`Error with peer ${peerId}:`, error);

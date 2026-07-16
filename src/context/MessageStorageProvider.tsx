@@ -7,11 +7,7 @@ const MessageStorageProvider = ({ children }: { children: React.ReactNode }) => 
   const db = useDB();
   const [messages, dispatch] = useReducer(messageReducer, db.getMessages());
 
-  return (
-    <MessageStorageContext value={{ messages, dispatch }}>
-      {children}
-    </MessageStorageContext>
-  );
+  return <MessageStorageContext value={{ messages, dispatch }}>{children}</MessageStorageContext>;
 };
 
 export default MessageStorageProvider;

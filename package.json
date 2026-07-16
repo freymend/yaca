@@ -24,9 +24,6 @@
     "build": "vite build",
     "deploy": "npm run build && wrangler deploy"
   },
-  "engines": {
-    "node": "24.x"
-  },
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",
     "idb": "^8.0.3",
@@ -44,6 +41,9 @@
     "typescript": "^7.0.2",
     "vite": "^8.1.4",
     "wrangler": "^4.111.0"
+  },
+  "engines": {
+    "node": "24.x"
   },
   "packageManager": "npm@12.0.1+sha512.2f94fd8bf600416416a934bfc59c4991e8bff7372ef7d842784e2a8b8d48c81555ee645069ddea73625fb8e92dc261feab0188fd5dab6c22fefd46316f5f9140"
 }

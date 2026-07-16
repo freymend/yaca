@@ -5,7 +5,7 @@ import { usePeer } from "../../hooks/usePeer";
 
 export default function Join() {
   const db = useDB();
-  const { connectToPeer} = usePeer();
+  const { connectToPeer } = usePeer();
 
   const { data: joinCode } = useSuspenseQuery({
     queryKey: ["joinCode"],

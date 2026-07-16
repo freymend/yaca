@@ -3,16 +3,14 @@
   "name": "yaca",
   "compatibility_date": "2026-07-16",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "assets": {
     "not_found_handling": "single-page-application",
-    "directory": "dist"
+    "directory": "dist",
   },
   "cache": {
-    "enabled": true
+    "enabled": true,
   },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "compatibility_flags": ["nodejs_compat"],
 }

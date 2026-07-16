@@ -13,20 +13,20 @@ export default function MessageInput() {
   const { sendMessage } = usePeer();
 
   const handleSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        db.addMessage(value).catch((error) => {
-          console.error("Failed to add message to IndexedDB:", error);
-        });
-        dispatch({
-          type: ActionType.ADD_MESSAGE,
-          payload: { id: Date.now(), message: value },
-        });
-        handleReset(e);
-        sendMessage(value);
-        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-      }
-    };
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      db.addMessage(value).catch((error) => {
+        console.error("Failed to add message to IndexedDB:", error);
+      });
+      dispatch({
+        type: ActionType.ADD_MESSAGE,
+        payload: { id: Date.now(), message: value },
+      });
+      handleReset(e);
+      sendMessage(value);
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  };
 
   return (
     <form className={styles.Form} id="MessageInput">
