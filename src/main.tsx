@@ -1,4 +1,4 @@
-import { StrictMode, Suspense } from "react";
+import { StrictMode, Suspense } from "preact/compat";
 import { createRoot } from "react-dom/client";
 import App from "./App.js";
 import { DBContext } from "./context/DBContext.js";
@@ -13,16 +13,16 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <DBContext value={dbInstance}>
-      <QueryClientProvider client={queryClient}>
-        <MessageStorageProvider>
-          <PeerProvider>
-            <Suspense fallback="Loading...">
+    <Suspense fallback="Loading...">
+      <DBContext.Provider value={dbInstance}>
+        <QueryClientProvider client={queryClient}>
+          <MessageStorageProvider>
+            <PeerProvider>
               <App />
-            </Suspense>
-          </PeerProvider>
-        </MessageStorageProvider>
-      </QueryClientProvider>
-    </DBContext>
+            </PeerProvider>
+          </MessageStorageProvider>
+        </QueryClientProvider>
+      </DBContext.Provider>
+    </Suspense>
   </StrictMode>,
 );

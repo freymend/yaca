@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 
 export default function useMessageInput() {
   const [value, setValue] = useState("");

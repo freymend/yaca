@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext } from "preact/hooks";
 import { MessageStorageContext } from "../context/MessageStorageContext";
 
 export default function useMessageStorage() {

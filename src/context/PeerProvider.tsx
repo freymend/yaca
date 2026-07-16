@@ -1,10 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { type ReactNode, useEffect, useRef } from "react";
+import { useEffect, useRef } from "preact/hooks";
 import { useDB } from "../hooks/useDB";
 import useMessageStorage from "../hooks/useMessageStorage";
 import { ActionType } from "../reducers/messageReducer";
 import { PeerJS } from "../state/peer";
 import { PeerContext } from "./PeerContext";
+import type { ReactNode } from "preact/compat";
 
 type PeerProviderProps = {
   children: ReactNode;
@@ -78,13 +79,13 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
   };
 
   return (
-    <PeerContext
+    <PeerContext.Provider
       value={{
         connectToPeer,
         peer: peerRef.current,
       }}
     >
       {children}
-    </PeerContext>
+    </PeerContext.Provider>
   );
 };

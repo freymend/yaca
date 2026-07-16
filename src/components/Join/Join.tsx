@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useRef } from "preact/hooks";
 import { useDB } from "../../hooks/useDB";
 import { usePeer } from "../../hooks/usePeer";
 

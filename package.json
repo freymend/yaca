@@ -1,16 +1,16 @@
 {
-  "name": "project-cronus",
+  "name": "yaca",
   "version": "1.0.0",
   "description": "Real time collaboration",
-  "homepage": "https://github.com/freymend/Project-Cronus#readme",
+  "homepage": "https://github.com/freymend/yaca#readme",
   "bugs": {
-    "url": "https://github.com/freymend/Project-Cronus/issues"
+    "url": "https://github.com/freymend/yaca/issues"
   },
   "license": "AGPL-3.0",
   "author": "Me",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freymend/Project-Cronus.git"
+    "url": "git+https://github.com/freymend/yaca.git"
   },
   "type": "module",
   "main": "index.js",
@@ -28,8 +28,9 @@
     "@tanstack/react-query": "^5.101.2",
     "idb": "^8.0.3",
     "peerjs": "^1.5.5",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "preact": "^10.29.7",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",

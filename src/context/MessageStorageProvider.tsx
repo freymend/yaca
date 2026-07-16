@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer } from "preact/hooks";
 import { useDB } from "../hooks/useDB";
 import { messageReducer } from "../reducers/messageReducer";
 import { MessageStorageContext } from "./MessageStorageContext";
