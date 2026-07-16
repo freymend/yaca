@@ -24,23 +24,26 @@
     "build": "vite build",
     "deploy": "npm run build && wrangler deploy"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
-    "@tanstack/react-query": "^5.100.14",
+    "@tanstack/react-query": "^5.101.2",
     "idb": "^8.0.3",
     "peerjs": "^1.5.5",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
-    "oxfmt": "^0.50.0",
-    "oxlint": "^1.65.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.16",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxfmt": "^0.59.0",
+    "oxlint": "^1.74.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.4",
     "wrangler": "^4.111.0"
   },
-  "packageManager": "npm@12.0.0-pre.1+sha512.ec1e225677cdfdd911b2733680c4d3bf2af781cb033cbf2b32e7081a29ec9366da7056d0087b9c47c8b4ff5e1243b29fdf4263882298886453c1906735b65d74"
+  "packageManager": "npm@12.0.1+sha512.2f94fd8bf600416416a934bfc59c4991e8bff7372ef7d842784e2a8b8d48c81555ee645069ddea73625fb8e92dc261feab0188fd5dab6c22fefd46316f5f9140"
 }
