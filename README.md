@@ -16,6 +16,7 @@ Messing around with real-time collaboration and WebRTC. This is a playground for
   - [x] STUN / TURN servers?
   - [ ] BiTorrent peer discovery?
     - [ ] https://github.com/dmotz/trystero
+- [ ] e2e encryption?
 
 ## Deployment
 
