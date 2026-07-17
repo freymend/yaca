@@ -1,7 +1,0 @@
-# Force browsers to cache fingerprinted Vite assets forever
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# Prevent browsers from caching your index.html (so they always get updates)
-/*
-  Cache-Control: public, max-age=0, must-revalidate
