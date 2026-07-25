@@ -1,11 +1,11 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import type { ReactNode } from "preact/compat";
 import { useEffect, useRef } from "preact/hooks";
 import { useDB } from "../hooks/useDB";
+import { useJoinCode } from "../hooks/useJoinCode";
 import useMessageStorage from "../hooks/useMessageStorage";
 import { ActionType } from "../reducers/messageReducer";
 import { PeerJS } from "../state/peer";
 import { PeerContext } from "./PeerContext";
-import type { ReactNode } from "preact/compat";
 
 type PeerProviderProps = {
   children: ReactNode;
@@ -14,18 +14,13 @@ type PeerProviderProps = {
 export const PeerProvider = ({ children }: PeerProviderProps) => {
   const db = useDB();
   const { dispatch } = useMessageStorage();
-
-  const { data: joinCode } = useSuspenseQuery({
-    queryKey: ["joinCode"],
-    queryFn: async () => {
-      const joinCodeData = await db.getJoinCode();
-      return joinCodeData.joinCode;
-    },
-  });
+  const { data: joinCode, isLoading } = useJoinCode();
 
   const peerRef = useRef(new PeerJS());
 
   useEffect(() => {
+    if (isLoading) return;
+
     const peer = peerRef.current;
 
     peer.initialize(joinCode);
@@ -72,7 +67,7 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
 
       peer.destroy();
     };
-  }, [joinCode, dispatch]);
+  }, [joinCode, isLoading, dispatch]);
 
   const connectToPeer = (peerId: string) => {
     peerRef.current.connectToPeer(peerId);

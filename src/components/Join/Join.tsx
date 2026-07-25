@@ -1,20 +1,12 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useRef } from "preact/hooks";
-import { useDB } from "../../hooks/useDB";
-import { usePeer } from "../../hooks/usePeer";
 import type { TargetedKeyboardEvent } from "preact";
+import { useRef } from "preact/hooks";
+import { useJoinCode } from "../../hooks/useJoinCode";
+import { usePeer } from "../../hooks/usePeer";
 
 export default function Join() {
-  const db = useDB();
   const { connectToPeer } = usePeer();
 
-  const { data: joinCode } = useSuspenseQuery({
-    queryKey: ["joinCode"],
-    queryFn: async () => {
-      const joinCodeData = await db.getJoinCode();
-      return joinCodeData.joinCode;
-    },
-  });
+  const { data: joinCode } = useJoinCode();
 
   const ref = useRef<HTMLInputElement>(null);
 
