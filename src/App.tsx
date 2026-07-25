@@ -11,29 +11,36 @@ function App() {
     <div
       style={{
         display: "grid",
-        width: "100%",
-        gridTemplateColumns: "repeat(3, 1fr)",
+        height: "100%",
+        gridTemplateColumns: "1fr 2fr",
       }}
     >
       <Join />
       <div
         style={{
-          padding: "16px",
           display: "flex",
           flexDirection: "column",
-          minWidth: "80ch",
+          overflow: "hidden",
+          gap: "16px",
+          paddingLeft: "8px",
+          paddingTop: "16px",
+          paddingBottom: "16px",
         }}
       >
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: "8px",
+            flexDirection: "column-reverse",
+            width: "100%",
+            height: "100%",
+            overflowY: "auto",
           }}
         >
-          {messages.map(({ message }, index) => (
-            <Message key={index} message={message} />
-          ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "80ch" }}>
+            {messages.map(({ message }, index) => (
+              <Message key={index} message={message} />
+            ))}
+          </div>
         </div>
         <MessageInput />
       </div>

@@ -21,9 +21,7 @@ export default function Join() {
   return (
     <div
       style={{
-        position: "sticky",
-        top: 0,
-        width: "400px",
+        maxWidth: "400px",
         display: "flex",
         flexDirection: "column",
         gap: "16px",
@@ -38,6 +36,7 @@ export default function Join() {
         type="text"
         name="joinCode"
         placeholder="Enter join code"
+        autoComplete="off"
         onKeyDown={handleKeyDown}
         style={{
           padding: "8px",

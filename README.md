@@ -1,4 +1,4 @@
-# Project Cronus
+# Project YACA
 
 Messing around with real-time collaboration and WebRTC. This is a playground for me to learn about these technologies and see what I can build with them.
 

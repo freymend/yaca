@@ -32,7 +32,6 @@ export default function MessageInput() {
   return (
     <form className={styles.Form} id="MessageInput">
       <label className={styles.Label}>
-        Message
         <textarea
           id="MessageInput"
           value={value}

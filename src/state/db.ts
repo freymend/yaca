@@ -58,7 +58,7 @@ export class RepoDB {
     }
 
     if (!RepoDB.#db) {
-      RepoDB.#db = await openDB<DB>("cronus-db", 2, DBCallbacks());
+      RepoDB.#db = await openDB<DB>("yaca-db", 2, DBCallbacks());
       RepoDB.messages = await RepoDB.#instance.getAllMessages();
     }
     return RepoDB.#instance;
@@ -131,6 +131,6 @@ export class RepoDB {
   }
 
   async deleteDatabase() {
-    await deleteDB("cronus-db");
+    await deleteDB("yaca-db");
   }
 }
