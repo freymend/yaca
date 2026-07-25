@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRef } from "preact/hooks";
 import { useDB } from "../../hooks/useDB";
 import { usePeer } from "../../hooks/usePeer";
+import type { TargetedKeyboardEvent } from "preact";
 
 export default function Join() {
   const db = useDB();
@@ -17,7 +18,7 @@ export default function Join() {
 
   const ref = useRef<HTMLInputElement>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: TargetedKeyboardEvent<HTMLInputElement>) => {
     const inputValue = ref.current?.value.trim();
     if (e.key === "Enter" && inputValue) {
       e.preventDefault();

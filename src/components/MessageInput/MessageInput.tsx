@@ -1,3 +1,4 @@
+import type { TargetedKeyboardEvent } from "preact";
 import { useDB } from "../../hooks/useDB";
 import useMessageStorage from "../../hooks/useMessageStorage";
 import { usePeer } from "../../hooks/usePeer";
@@ -12,7 +13,7 @@ export default function MessageInput() {
   const { dispatch } = useMessageStorage();
   const { sendMessage } = usePeer();
 
-  const handleSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleSendMessage = (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       db.addMessage(value).catch((error) => {
