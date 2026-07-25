@@ -1,6 +1,5 @@
 import type { ReactNode } from "preact/compat";
 import { useEffect, useRef } from "preact/hooks";
-import { useDB } from "../hooks/useDB";
 import { useJoinCode } from "../hooks/useJoinCode";
 import useMessageStorage from "../hooks/useMessageStorage";
 import { ActionType } from "../reducers/messageReducer";
@@ -12,7 +11,6 @@ type PeerProviderProps = {
 };
 
 export const PeerProvider = ({ children }: PeerProviderProps) => {
-  const db = useDB();
   const { dispatch } = useMessageStorage();
   const { data: joinCode, isLoading } = useJoinCode();
 
