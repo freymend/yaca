@@ -1,0 +1,23 @@
+diff --git a/dist/bundler.mjs b/dist/bundler.mjs
+index eaa4d3675150b55a6118db78f63fb205f8df01e6..709dd9376dc4322b06af33dc055f59cb223181d0 100644
+--- a/dist/bundler.mjs
++++ b/dist/bundler.mjs
+@@ -1,8 +1,6 @@
+ import {pack as $gCcbY$pack, unpack as $gCcbY$unpack} from "peerjs-js-binarypack";
+-import $gCcbY$webrtcadapter from "webrtc-adapter";
+ import {Encoder as $gCcbY$Encoder, decodeMultiStream as $gCcbY$decodeMultiStream} from "@msgpack/msgpack";
+ 
+-
+ function $parcel$export(e, n, v, s) {
+   Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+ }
+@@ -51,8 +49,7 @@ function $fcbcc7538a6776d5$export$52c89ebcdc4f53f2(bufs) {
+ 
+ 
+ 
+-const $fb63e766cfafaab9$var$webRTCAdapter = //@ts-ignore
+-(0, $gCcbY$webrtcadapter).default || (0, $gCcbY$webrtcadapter);
++const $fb63e766cfafaab9$var$webRTCAdapter = { browserDetails: { browser: "chrome", version: 100 }, getBrowser: () => "chrome", getVersion: () => 100 };
+ const $fb63e766cfafaab9$export$25be9502477c137d = new class {
+     isWebRTCSupported() {
+         return typeof RTCPeerConnection !== "undefined";

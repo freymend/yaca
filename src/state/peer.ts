@@ -1,4 +1,5 @@
-import Peer, {
+import {
+  Peer,
   type BaseConnectionErrorType,
   type DataConnectionErrorType,
   type PeerError,

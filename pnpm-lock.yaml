@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  peerjs: 3cd3e1e4e6361b740acf15663da1834377ecbb093434fa3eb08dadf1bea18384
+
 importers:
 
   .:
@@ -13,7 +16,7 @@ importers:
         version: 8.0.3
       peerjs:
         specifier: ^1.5.5
-        version: 1.5.5
+        version: 1.5.5(patch_hash=3cd3e1e4e6361b740acf15663da1834377ecbb093434fa3eb08dadf1bea18384)
       preact:
         specifier: ^10.29.7
         version: 10.29.7
@@ -1945,7 +1948,7 @@ snapshots:
 
   peerjs-js-binarypack@2.1.0: {}
 
-  peerjs@1.5.5:
+  peerjs@1.5.5(patch_hash=3cd3e1e4e6361b740acf15663da1834377ecbb093434fa3eb08dadf1bea18384):
     dependencies:
       '@msgpack/msgpack': 2.8.0
       eventemitter3: 4.0.7
