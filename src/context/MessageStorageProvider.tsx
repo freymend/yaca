@@ -1,5 +1,5 @@
+import type { ReactNode } from "preact/compat";
 import { useReducer } from "preact/hooks";
-import type { ReactNode } from "react-dom/src";
 import { useDB } from "../hooks/useDB";
 import { messageReducer } from "../reducers/messageReducer";
 import { MessageStorageContext } from "./MessageStorageContext";
