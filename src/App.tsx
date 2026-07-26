@@ -37,8 +37,8 @@ function App() {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "80ch" }}>
-            {messages.map(({ message }, index) => (
-              <Message key={index} message={message} />
+            {messages.map(({ message, files }, index) => (
+              <Message key={index} message={message} files={files} />
             ))}
           </div>
         </div>

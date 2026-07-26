@@ -1,10 +1,12 @@
 import {
   Peer,
   type BaseConnectionErrorType,
+  type DataConnection,
   type DataConnectionErrorType,
   type PeerError,
-  type DataConnection,
 } from "peerjs";
+import type { UserMessage } from "../reducers/messageReducer";
+import { convertToUserMessage, isValidMessage } from "../utils/isUserMessage";
 
 type PeerServiceEvents = {
   connected: {
@@ -16,7 +18,7 @@ type PeerServiceEvents = {
   };
   message: {
     peerId: string;
-    data: unknown;
+    data: UserMessage;
   };
   error: {
     peerId: string;
@@ -80,11 +82,13 @@ export class PeerJS extends EventTarget {
     });
 
     conn.on("data", (data) => {
-      this.dispatchEvent(
-        new CustomEvent<PeerServiceEvents["message"]>("message", {
-          detail: { peerId: conn.peer, data },
-        }),
-      );
+      if (isValidMessage(data)) {
+        this.dispatchEvent(
+          new CustomEvent<PeerServiceEvents["message"]>("message", {
+            detail: { peerId: conn.peer, data: convertToUserMessage(data) },
+          }),
+        );
+      }
     });
 
     conn.on("close", () => {

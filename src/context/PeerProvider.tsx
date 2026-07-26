@@ -30,16 +30,12 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
     const unsubscribeMessage = peer.on("message", ({ detail: { peerId, data: message } }) => {
       console.log(`Received message from peer ${peerId}:`, message);
 
-      if (typeof message !== "string") {
-        console.warn("Received non-string message:", message);
-        return;
-      }
-
       dispatch({
         type: ActionType.ADD_MESSAGE,
         payload: {
           id: Date.now(),
-          message,
+          message: message.text,
+          files: message.files,
         },
       });
     });

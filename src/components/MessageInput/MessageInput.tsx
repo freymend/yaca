@@ -9,23 +9,31 @@ import useMessageInput from "./useMessageInput";
 export default function MessageInput() {
   const db = useDB();
 
-  const { value, rows, handleChange, handleReset } = useMessageInput();
+  const { text, files, rows, fileInputRef, handleChange, handleFileChange, handleReset } = useMessageInput();
   const { dispatch } = useMessageStorage();
   const { sendMessage } = usePeer();
 
-  const handleSendMessage = (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
+  const handleSendMessage = async (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      db.addMessage(value).catch((error) => {
+      db.addMessage({ text, files }).catch((error) => {
         console.error("Failed to add message to IndexedDB:", error);
       });
       dispatch({
         type: ActionType.ADD_MESSAGE,
-        payload: { id: Date.now(), message: value },
+        payload: { id: Date.now(), message: text, files },
       });
       handleReset(e);
-      sendMessage(value);
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+      const filePayloads = await Promise.all(
+        Array.from(files).map(async (file) => ({
+          name: file.name,
+          type: file.type,
+          data: await file.arrayBuffer(),
+        }))
+      );
+
+      sendMessage({ text, files: filePayloads });
     }
   };
 
@@ -33,8 +41,8 @@ export default function MessageInput() {
     <form className={styles.Form} id="MessageInput">
       <label className={styles.Label}>
         <textarea
+          value={text}
           id="MessageInput"
-          value={value}
           onChange={handleChange}
           onKeyDown={handleSendMessage}
           className={styles.Input}
@@ -43,6 +51,7 @@ export default function MessageInput() {
           rows={rows}
         />
       </label>
+      <input ref={fileInputRef} id="MessageInputFiles" type="file" multiple onChange={handleFileChange}/>
     </form>
   );
 }

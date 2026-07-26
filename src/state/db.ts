@@ -1,4 +1,5 @@
 import { deleteDB, openDB, type DBSchema, type IDBPDatabase, type OpenDBCallbacks } from "idb";
+import type { UserMessage } from "../reducers/messageReducer";
 
 interface DB extends DBSchema {
   messages: {
@@ -6,6 +7,7 @@ interface DB extends DBSchema {
     value: {
       id: number;
       message: string;
+      files: File[];
     };
   };
   joinCodes: {
@@ -50,7 +52,7 @@ function DBCallbacks(): OpenDBCallbacks<DB> {
 export class RepoDB {
   static #instance: RepoDB;
   static #db: IDBPDatabase<DB> | null = null;
-  static messages: { id: number; message: string }[] = [];
+  static messages: { id: number; message: string; files: File[] }[] = [];
 
   static async init() {
     if (!RepoDB.#instance) {
@@ -73,11 +75,11 @@ export class RepoDB {
     return RepoDB.#db;
   }
 
-  async addMessage(message: string) {
+  async addMessage(message: UserMessage) {
     const db = this.db;
     const tx = db.transaction("messages", "readwrite");
     const store = tx.objectStore("messages");
-    await store.add({ id: Date.now(), message });
+    await store.add({ id: Date.now(), message: message.text, files: message.files });
     await tx.done;
   }
 

@@ -1,6 +1,12 @@
 export interface Message {
   id: number;
   message: string;
+  files: File[];
+}
+
+export interface UserMessage {
+  text: string;
+  files: File[];
 }
 
 export interface AddMessageAction {

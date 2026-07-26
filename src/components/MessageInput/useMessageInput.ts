@@ -1,26 +1,41 @@
 import type { TargetedKeyboardEvent } from "preact";
-import { useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 
 export default function useMessageInput() {
-  const [value, setValue] = useState("");
+  const [text, setText] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
   const [rows, setRows] = useState(1);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleReset = (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    setValue("");
+    setText("");
+    setFiles([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
     setRows(1);
   };
 
   const handleChange = (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
-    setValue(e.currentTarget.value);
+    setText(e.currentTarget.value);
     const lineCount = e.currentTarget.value.split("\n").length;
     setRows(lineCount);
   };
 
+  const handleFileChange = (e: TargetedKeyboardEvent<HTMLInputElement>) => {
+    const files = e.currentTarget.files ? Array.from(e.currentTarget.files) : [];
+    setFiles(files);
+  };
+
   return {
-    value,
+    text,
+    files,
     rows,
+    fileInputRef,
     handleChange,
+    handleFileChange,
     handleReset,
   };
 }
