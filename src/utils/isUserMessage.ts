@@ -17,4 +17,3 @@ export function convertToUserMessage(data: { text: string; files: FilePayload[] 
     files: data.files.map((file) => new File([file.data], file.name, { type: file.type })),
   };
 }
-

@@ -1,4 +1,3 @@
-
 interface MessageProps {
   message: string;
   files: File[];

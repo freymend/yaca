@@ -1,6 +1,5 @@
 import { useContext } from "preact/hooks";
 import { PeerContext } from "../context/PeerContext";
-import type { UserMessage } from "../reducers/messageReducer";
 import type { FilePayload } from "../utils/isUserMessage";
 
 export const usePeer = () => {

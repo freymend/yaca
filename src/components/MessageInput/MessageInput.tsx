@@ -9,7 +9,8 @@ import useMessageInput from "./useMessageInput";
 export default function MessageInput() {
   const db = useDB();
 
-  const { text, files, rows, fileInputRef, handleChange, handleFileChange, handleReset } = useMessageInput();
+  const { text, files, rows, fileInputRef, handleChange, handleFileChange, handleReset } =
+    useMessageInput();
   const { dispatch } = useMessageStorage();
   const { sendMessage } = usePeer();
 
@@ -30,7 +31,7 @@ export default function MessageInput() {
           name: file.name,
           type: file.type,
           data: await file.arrayBuffer(),
-        }))
+        })),
       );
 
       sendMessage({ text, files: filePayloads });
@@ -51,7 +52,13 @@ export default function MessageInput() {
           rows={rows}
         />
       </label>
-      <input ref={fileInputRef} id="MessageInputFiles" type="file" multiple onChange={handleFileChange}/>
+      <input
+        ref={fileInputRef}
+        id="MessageInputFiles"
+        type="file"
+        multiple
+        onChange={handleFileChange}
+      />
     </form>
   );
 }
