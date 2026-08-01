@@ -8,3 +8,5 @@ minimumReleaseAgeExclude:
   - preact@10.29.8
 patchedDependencies:
   peerjs: patches/peerjs.patch
+overrides:
+  "webrtc-adapter": "-"

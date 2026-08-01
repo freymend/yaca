@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  webrtc-adapter: '-'
+
 patchedDependencies:
   peerjs: 3cd3e1e4e6361b740acf15663da1834377ecbb093434fa3eb08dadf1bea18384
 
@@ -1385,9 +1388,6 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  sdp@3.2.2:
-    resolution: {integrity: sha512-xZocWwfyp4hkbN4hLWxMjmv2Q8aNa9MhmOZ7L9aCZPT+dZsgRr6wZRrSYE3HTdyk/2pZKPSgqI7ns7Een1xMSA==}
-
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
@@ -1499,10 +1499,6 @@ packages:
         optional: true
       yaml:
         optional: true
-
-  webrtc-adapter@9.0.6:
-    resolution: {integrity: sha512-CHbl2ZQbxx164IgWRgzJno4hWtM4tFbRam1QfI3Yxhs3w/DvqluVxVWeXs3oL5/fbGkSNLKo0Ty5MgUWceNhog==}
-    engines: {node: '>=6.0.0', npm: '>=3.10.0'}
 
   workerd@1.20260730.1:
     resolution: {integrity: sha512-zmfNIjwYSWFY5chGBOjWtH3xAE7p97FTC6vR4Ep98290ho6AeAR/NVcBD274YCLEUYzqm8yxdtZlxMybU8a3jA==}
@@ -2512,7 +2508,6 @@ snapshots:
       '@msgpack/msgpack': 2.8.0
       eventemitter3: 4.0.7
       peerjs-js-binarypack: 2.1.0
-      webrtc-adapter: 9.0.6
 
   picocolors@1.1.1: {}
 
@@ -2548,8 +2543,6 @@ snapshots:
       '@rolldown/binding-wasm32-wasi': 1.2.1
       '@rolldown/binding-win32-arm64-msvc': 1.2.1
       '@rolldown/binding-win32-x64-msvc': 1.2.1
-
-  sdp@3.2.2: {}
 
   semver@6.3.1: {}
 
@@ -2667,10 +2660,6 @@ snapshots:
       '@types/node': 25.9.5
       esbuild: 0.28.1
       fsevents: 2.3.3
-
-  webrtc-adapter@9.0.6:
-    dependencies:
-      sdp: 3.2.2
 
   workerd@1.20260730.1:
     optionalDependencies:
