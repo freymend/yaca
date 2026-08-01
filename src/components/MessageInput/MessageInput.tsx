@@ -1,5 +1,4 @@
 import type { TargetedKeyboardEvent } from "preact";
-import { useDB } from "../../hooks/useDB";
 import useMessageStorage from "../../hooks/useMessageStorage";
 import { usePeer } from "../../hooks/usePeer";
 import { ActionType } from "../../reducers/messageReducer";
@@ -7,8 +6,6 @@ import styles from "./index.module.css";
 import useMessageInput from "./useMessageInput";
 
 export default function MessageInput() {
-  const db = useDB();
-
   const { text, files, rows, fileInputRef, handleChange, handleFileChange, handleReset } =
     useMessageInput();
   const { dispatch } = useMessageStorage();
@@ -17,9 +14,6 @@ export default function MessageInput() {
   const handleSendMessage = async (e: TargetedKeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      db.addMessage({ text, files }).catch((error) => {
-        console.error("Failed to add message to IndexedDB:", error);
-      });
       dispatch({
         type: ActionType.ADD_MESSAGE,
         payload: { id: Date.now(), message: text, files },

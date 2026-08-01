@@ -1,5 +1,5 @@
-import type { ReactNode } from "preact/compat";
-import { useEffect, useRef } from "preact/hooks";
+import { type ReactNode } from "preact/compat";
+import { useCallback, useEffect, useRef } from "preact/hooks";
 import { useJoinCode } from "../hooks/useJoinCode";
 import useMessageStorage from "../hooks/useMessageStorage";
 import { ActionType } from "../reducers/messageReducer";
@@ -63,9 +63,9 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
     };
   }, [joinCode, isLoading, dispatch]);
 
-  const connectToPeer = (peerId: string) => {
+  const connectToPeer = useCallback((peerId: string) => {
     peerRef.current.connectToPeer(peerId);
-  };
+  }, []);
 
   return (
     <PeerContext.Provider
