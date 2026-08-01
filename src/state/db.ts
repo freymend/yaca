@@ -1,6 +1,7 @@
 import { deleteDB, openDB, type DBSchema, type IDBPDatabase, type OpenDBCallbacks } from "idb";
 import type { UserMessage } from "../reducers/messageReducer";
 
+// TODO: refactor this so the DB layer types and the rest of the app types are not coupled.
 interface DB extends DBSchema {
   messages: {
     key: number;

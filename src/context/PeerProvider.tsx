@@ -42,6 +42,14 @@ export const PeerProvider = ({ children }: PeerProviderProps) => {
 
     const unsubscribeConnected = peer.on("connected", ({ detail: { peerId } }) => {
       console.log(`Connected to peer: ${peerId}`);
+      dispatch({
+        type: ActionType.ADD_MESSAGE,
+        payload: {
+          id: Date.now(),
+          message: `Connected to peer: ${peerId}`,
+          files: [],
+        },
+      });
     });
 
     const unsubscribeDisconnected = peer.on("disconnected", ({ detail: { peerId } }) => {
