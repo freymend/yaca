@@ -3,8 +3,8 @@ allowBuilds:
   sharp: false
   workerd: false
 minimumReleaseAgeExclude:
-  - miniflare@4.20260710.0 || 5.20260804.0-alpha || 5.20260815.0-alpha
-  - wrangler@4.111.0 || 4.120.1 || 4.124.0
+  - miniflare@4.20260710.0 || 5.20260804.0-alpha || 5.20260815.0-alpha || 5.20260826.0-alpha
+  - wrangler@4.111.0 || 4.120.1 || 4.124.0 || 4.127.0
   - preact@10.29.8
   - '@oxfmt/binding-android-arm-eabi@0.63.0 || 0.64.0'
   - '@oxfmt/binding-android-arm64@0.63.0 || 0.64.0'
