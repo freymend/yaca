@@ -3,8 +3,8 @@ allowBuilds:
   sharp: false
   workerd: false
 minimumReleaseAgeExclude:
-  - miniflare@4.20260710.0 || 5.20260804.0-alpha || 5.20260815.0-alpha || 5.20260826.0-alpha || 5.20260907.0-alpha
-  - wrangler@4.111.0 || 4.120.1 || 4.124.0 || 4.127.0 || 4.129.1
+  - miniflare@4.20260710.0 || 5.20260804.0-alpha || 5.20260815.0-alpha || 5.20260826.0-alpha || 5.20260907.0-alpha || 5.20260910.0-alpha
+  - wrangler@4.111.0 || 4.120.1 || 4.124.0 || 4.127.0 || 4.129.1 || 4.131.0
   - preact@10.29.8
   - '@oxfmt/binding-android-arm-eabi@0.63.0 || 0.64.0 || 0.67.0'
   - '@oxfmt/binding-android-arm64@0.63.0 || 0.64.0 || 0.67.0'
@@ -46,12 +46,13 @@ minimumReleaseAgeExclude:
   - '@oxlint/binding-win32-x64-msvc@1.78.0 || 1.79.0 || 1.82.0'
   - oxfmt@0.63.0 || 0.64.0 || 0.67.0
   - oxlint@1.78.0 || 1.79.0 || 1.82.0
-  - '@cloudflare/workerd-darwin-64@1.20260907.1'
-  - '@cloudflare/workerd-darwin-arm64@1.20260907.1'
-  - '@cloudflare/workerd-linux-64@1.20260907.1'
-  - '@cloudflare/workerd-linux-arm64@1.20260907.1'
-  - '@cloudflare/workerd-windows-64@1.20260907.1'
-  - workerd@1.20260907.1
+  - '@cloudflare/workerd-darwin-64@1.20260907.1 || 1.20260910.1'
+  - '@cloudflare/workerd-darwin-arm64@1.20260907.1 || 1.20260910.1'
+  - '@cloudflare/workerd-linux-64@1.20260907.1 || 1.20260910.1'
+  - '@cloudflare/workerd-linux-arm64@1.20260907.1 || 1.20260910.1'
+  - '@cloudflare/workerd-windows-64@1.20260907.1 || 1.20260910.1'
+  - workerd@1.20260907.1 || 1.20260910.1
+  - vite@8.3.0
 patchedDependencies:
   peerjs: patches/peerjs.patch
 overrides:
