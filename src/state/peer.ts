@@ -26,7 +26,7 @@ type PeerServiceEvents = {
   };
 };
 
-class PeerJS extends EventTarget {
+export class PeerJS extends EventTarget {
   #peerjs: Peer | null = null;
   connections: Record<string, DataConnection> = {};
 
